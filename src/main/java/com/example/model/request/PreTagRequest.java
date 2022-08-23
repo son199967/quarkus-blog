@@ -4,14 +4,13 @@ import lombok.*;
 
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagRequest {
-
+public class PreTagRequest {
     @NotBlank(message = "label may not empty")
     private String label;
 }

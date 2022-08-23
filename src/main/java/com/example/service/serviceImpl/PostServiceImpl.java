@@ -4,25 +4,24 @@ package com.example.service.serviceImpl;
 import com.example.model.Post;
 import com.example.model.Tag;
 import com.example.model.request.PostRequest;
-import com.example.model.request.TagRequest;
+import com.example.model.request.PreTagRequest;
 import com.example.repository.PostRepository;
 import com.example.repository.TagRepository;
 import com.example.service.PostService;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
-    @Autowired
+    @Inject
     private PostRepository postRepository;
-    @Autowired
+    @Inject
     private TagRepository tagRepository;
 
     @Override
@@ -56,7 +55,7 @@ public class PostServiceImpl implements PostService {
 
     private Set<Tag> settTags(PostRequest postRequest) {
         Set<Tag> tagUpdates = new HashSet<>();
-        for (TagRequest tagRequest : postRequest.getTags()){
+        for (PreTagRequest tagRequest : postRequest.getTags()){
 
             Optional<Tag> tagOptional = tagRepository.findByLabel(tagRequest.getLabel());
 

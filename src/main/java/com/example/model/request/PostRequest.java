@@ -1,11 +1,8 @@
 package com.example.model.request;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Set;
 @Data
 public class PostRequest {
@@ -16,6 +13,6 @@ public class PostRequest {
     @NotBlank(message = "content may not empty")
     private String content;
 
-    private Set<TagRequest> tags;
+    private Set<PreTagRequest> tags;
 
 }

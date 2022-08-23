@@ -18,7 +18,13 @@ public class Tag {
     private Long id;
     @Column(name = "label", unique = true)
     private String label;
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.PERSIST},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "post_tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
     private Set<Post> posts;
 
 

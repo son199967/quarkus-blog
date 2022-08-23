@@ -1,12 +1,18 @@
 version: '3.8'
 services:
   quarkus-blog:
-    image: quarkus-blog:latest
-    restart: always
+    image: quarkus/security-jwt-jvm:latest
+#    restart: no
     depends_on:
       - db
     ports:
       - 8080:8080
+    networks:
+      - common-network
+    environment:
+      quarkus.datasource.jdbc.url: jdbc:postgresql://db:5432/postgres
+      quarkus.datasource.username: sonny
+      quarkus.datasource.password: sonny
   db:
     image: postgres:14.1-alpine
     restart: always
@@ -15,8 +21,13 @@ services:
       - POSTGRES_PASSWORD=sonny
     ports:
       - '5432:5432'
+    networks:
+      - common-network
     volumes:
       - db:/var/lib/postgresql/data
 volumes:
   db:
     driver: local
+networks:
+  common-network:
+    driver: bridge
